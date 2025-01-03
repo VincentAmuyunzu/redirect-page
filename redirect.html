@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Redirecting...</title>
+    <script>
+        // Check the platform and redirect to Google or ChatGPT
+        function initialize() {
+            const params = new URLSearchParams(window.location.search);
+
+            // Default: Open Google
+            let targetURL = "https://www.google.com";
+
+            // If "chat" is present in the query, redirect to ChatGPT
+            if (params.get("target") === "chatgpt") {
+                targetURL = "https://chat.openai.com";
+            }
+
+            // Redirect
+            window.location.href = targetURL;
+        }
+    </script>
+</head>
+<body onload="initialize()">
+    <h1>Redirecting to your resource...</h1>
+</body>
+</html>
