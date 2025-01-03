@@ -1,26 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Redirecting...</title>
-    <script>
-        // Check the platform and redirect to Google or ChatGPT
-        function initialize() {
-            const params = new URLSearchParams(window.location.search);
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirect Page</title>
+    <script type="text/javascript">
+        window.onload = function() {
+            // Wait for the JKUAT page to be fully loaded, then allow Google and ChatGPT
+            setTimeout(function() {
+                // Open Google and ChatGPT in separate tabs after 3 seconds
+                window.open("https://www.google.com", "_blank");
+                window.open("https://chat.openai.com", "_blank");
+            }, 3000);  // Delay to ensure the JKUAT page is fully loaded
 
-            // Default: Open Google
-            let targetURL = "https://www.google.com";
-
-            // If "chat" is present in the query, redirect to ChatGPT
-            if (params.get("target") === "chatgpt") {
-                targetURL = "https://chat.openai.com";
-            }
-
-            // Redirect
-            window.location.href = targetURL;
+            // Automatically redirect to the quiz after 3 seconds
+            setTimeout(function() {
+                window.location.href = "https://sodel4.jkuat.ac.ke/mod/quiz/view.php?id=40346";
+            }, 3000);
         }
     </script>
 </head>
-<body onload="initialize()">
-    <h1>Redirecting to your resource...</h1>
+<body>
+    <h2>Please wait while you are redirected...</h2>
+    <p>You will be redirected to the desired page shortly, along with Google and ChatGPT access.</p>
 </body>
 </html>
