@@ -1,26 +1,68 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Redirecting...</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Details</title>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
     <script>
-        // Check the platform and redirect to Google or ChatGPT
-        function initialize() {
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            databaseURL: "https://email-sendind-c338e-default-rtdb.firebaseio.com/",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const database = firebase.database(app);
+
+        // Function to get query parameters
+        function getQueryParams() {
             const params = new URLSearchParams(window.location.search);
-
-            // Default: Open Google
-            let targetURL = "https://www.google.com";
-
-            // If "chat" is present in the query, redirect to ChatGPT
-            if (params.get("target") === "chatgpt") {
-                targetURL = "https://chat.openai.com";
-            }
-
-            // Redirect
-            window.location.href = targetURL;
+            return {
+                email: params.get('email')
+            };
         }
+
+        // Function to display user details
+        function displayUserDetails(user) {
+            if (user) {
+                document.getElementById('user-details').innerHTML = `
+                    <p><strong>Name:</strong> ${user.Name}</p>
+                    <p><strong>Email:</strong> ${user.Email}</p>
+                    <p><strong>Position:</strong> ${user['Position no']}</p>
+                `;
+            } else {
+                document.getElementById('user-details').innerHTML = '<p>User not found.</p>';
+            }
+        }
+
+        // Fetch and display user details on page load
+        window.onload = function () {
+            const params = getQueryParams();
+            if (params.email) {
+                const userRef = database.ref('users').orderByChild('Email').equalTo(params.email);
+                userRef.once('value', snapshot => {
+                    const userData = snapshot.val();
+                    const user = userData ? Object.values(userData)[0] : null;
+                    displayUserDetails(user);
+                });
+            } else {
+                document.getElementById('user-details').innerHTML = '<p>Invalid parameters.</p>';
+            }
+        };
     </script>
 </head>
-<body onload="initialize()">
-    <h1>Redirecting to your resource...</h1>
+<body>
+    <h1>User Details</h1>
+    <div id="user-details">
+        <p>Loading...</p>
+    </div>
 </body>
 </html>
