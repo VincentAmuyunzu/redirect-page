@@ -9,13 +9,13 @@
     <script>
         // Your web app's Firebase configuration
         const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            apiKey: "AIzaSyBKeX8ZoQb8PIZCDy6kYbthdNU8oSv1gxI",
+            authDomain: "email-sendind-c338e.firebaseapp.com",
             databaseURL: "https://email-sendind-c338e-default-rtdb.firebaseio.com/",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_PROJECT_ID.appspot.com",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID"
+            projectId: "email-sendind-c338e",
+            storageBucket: "email-sendind-c338e.appspot.com",
+            messagingSenderId: "114202648991237939459",
+            appId: "1:114202648991237939459:web:abcd1234" // Replace with the correct app ID
         };
 
         // Initialize Firebase
@@ -36,7 +36,7 @@
                 document.getElementById('user-details').innerHTML = `
                     <p><strong>Name:</strong> ${user.Name}</p>
                     <p><strong>Email:</strong> ${user.Email}</p>
-                    <p><strong>Position:</strong> ${user['Position no']}</p>
+                    <p><strong>Position:</strong> ${user.Position}</p>
                 `;
             } else {
                 document.getElementById('user-details').innerHTML = '<p>User not found.</p>';
